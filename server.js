@@ -12,8 +12,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
 //routes
-const ClientUserRouter = require('./Routes/ClientUser');
-app.use('/adminuser',ClientUserRouter);
+const Clientrouter = require('./Routes/ClientUser');
+app.use('/user',Clientrouter);
 
 
 //listening to port 

@@ -11,3 +11,7 @@ CREATE TABLE bs_client.client_user (
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb3
 COLLATE=utf8mb3_general_ci;
+
+ALTER TABLE bs_client.client_user ADD country varchar(100) NOT NULL;
+ALTER TABLE bs_client.client_user ADD designation varchar(100) NOT NULL;
+ALTER TABLE bs_client.client_user ADD comments varchar(100) NOT NULL;
