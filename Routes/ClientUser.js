@@ -4,36 +4,58 @@ const Clientrouter = express.Router();
 
 
 //get all
-Clientrouter.get('/',async function(req,res){
-    try {
-        const sqlQuery = 'SELECT * FROM client_user';
-        const rows=await pool.query(sqlQuery,res.body);
-
-        res.status(200).json(rows);
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
+Clientrouter.get('/',(req,res)=>{
+    const sqlQuery = 'SELECT * FROM client_user';
+    pool.query(sqlQuery,(err,rows,fields)=>{
+        if(!err)
+        {
+            console.log(rows);
+            res.status(200).json(rows);
+        }
+        else{
+            console.log(err);
+            res.status(400).send(err.message);
+        }
+    })
 })
 
 
-//create a new  user
-Clientrouter.post('/create',async function(req,res){
-    try {
-        const name = req.body.name;
-        const email = req.body.email;
-        const password=req.body.password;
-        const designation=req.body.designation;
-        const role=req.body.role;
-        const country = req.body.country;
-        const comments=req.body.comments;
-        const status=req.body.status;
+//get a specific user
+Clientrouter.get('/:id',(req,res)=>{
+    const sqlQuery = 'SELECT * FROM client_user where id=? ';
+    pool.query(sqlQuery,req.params.id,(err,rows,fields)=>{
+        if(!err)
+        {
+            console.log(rows);
+            res.status(200).json(rows);
+        }
+        else{
+            console.log(err);
+            res.status(400).send(err.message);
+        }
+    })
+})
 
-        const sqlQuery='INSERT INTO client_user (name,email,password,designation,role,country,comments,status) VALUES (?,?,?,?,?,?,?,?)';
-        const row=await pool.query(sqlQuery,[name,email,password,designation,role,country,comments,status]);
+
+
+//create a new  user
+Clientrouter.post('/create',(req,res)=>{
+    try {
+        const firstname = req.body.firstname;
+        const lastName = req.body.lastName;
+        const position=req.body.position;
+        const id_clientRole=req.body.id_clientRole;
+        const email=req.body.email;
+        const companyId= req.body.companyId;
+        const subId = req.body.subId;
+
+        const sqlQuery='INSERT INTO client_user (firstname,lastName,position,id_clientRole,email,companyId,subId) VALUES (?,?,?,?,?,?,?)';
+        const row=pool.query(sqlQuery,[firstname,lastName,position,id_clientRole,email,companyId,subId]);
         
         res.status(200).send({message:'user added'})
             
     } catch (error) {
+        console.log(error);
         res.status(400).send(error.message);
     }
 })
@@ -41,10 +63,10 @@ Clientrouter.post('/create',async function(req,res){
 
 
 //delete a specific user
-Clientrouter.delete('/delete/:id',async function(req,res){
+Clientrouter.delete('/delete/:id',(req,res)=>{
     try {
-        const sqlQuery='DELETE FROM admin_user WHERE id=?';
-        const row=await pool.query(sqlQuery,req.params.id);
+        const sqlQuery='DELETE FROM client_user WHERE id=?';
+        const row=pool.query(sqlQuery,req.params.id);
 
         res.status(200).send({message:'Data Deleted'});
     } catch (error){
@@ -55,10 +77,10 @@ Clientrouter.delete('/delete/:id',async function(req,res){
 
 
 //delete all users
-Clientrouter.delete('/',async function(req,res){
+Clientrouter.delete('/',(req,res)=>{
     try {
         const sqlQuery='DELETE FROM client_user';
-        const row=await pool.query(sqlQuery);
+        const row=pool.query(sqlQuery);
 
         res.status(200).send({message:'Data Deleted'});
     } catch (error){
