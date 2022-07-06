@@ -1,3 +1,9 @@
+const nodemailer = require("nodemailer");
+const path = require("path");
+const hbs = require("nodemailer-express-handlebars");
+
+
+
 const sendMail = ((req, res) => {
     var email = req.body.email;
     var review = req.body.review;

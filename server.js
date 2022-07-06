@@ -5,6 +5,7 @@ const Siterouter = require('./Routes/sites.routes');
 const RequestRouter = require('./Routes/request.routes');
 const reviewRoutes=require('./Routes/ReviewRoutes')
 const userRoutes=require('./Routes/UserRoutes')
+const mailRoutes=require('./Routes/mailRoutes')
 
 
 //defining port
@@ -32,7 +33,7 @@ app.use('/site',Siterouter);
 app.use('/request',RequestRouter);
 app.use('/review',reviewRoutes)
 app.use('/user',userRoutes)
-
+app.use('/mail',mailRoutes)
 
 //listening to port 
 app.listen(PORT,()=>{
