@@ -26,6 +26,16 @@ Siterouter.get('/rating/:id',controller.GetSiteRating);
 Siterouter.get('/reviews/:id',controller.GetSiteReviews);
 Siterouter.get('/',controller.GetFullSites);
 
+
+
+
+Siterouter.get('/getAllSites', controller.getAllSites);
+Siterouter.get('/getSite/:id', controller.getSite);
+Siterouter.get('/getSummary', controller.getSummary);
+
+
+
+
 Siterouter.post('/create',upload.single('siteimg'),controller.CreateSite);
 
 Siterouter.delete('/delete/:id',controller.DeleteSite);

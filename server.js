@@ -3,6 +3,9 @@ const dotenv = require('dotenv').config({path:'.env'});
 const cors= require('cors');
 const Siterouter = require('./Routes/sites.routes');
 const RequestRouter = require('./Routes/request.routes');
+const reviewRoutes=require('./Routes/ReviewRoutes')
+const userRoutes=require('./Routes/UserRoutes')
+
 
 //defining port
 const PORT=process.env.PORT || '8000';
@@ -27,6 +30,9 @@ app.use('/role',Rolerouter);
 app.use('/Images',express.static('./Images'));
 app.use('/site',Siterouter);
 app.use('/request',RequestRouter);
+app.use('/review',reviewRoutes)
+app.use('/user',userRoutes)
+
 
 //listening to port 
 app.listen(PORT,()=>{

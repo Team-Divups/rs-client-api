@@ -1,5 +1,7 @@
 const pool = require("../Database/database");
 const path = require("path");
+const db = require("../Database/database");
+
 
 //get all sites of a subscription
 
@@ -192,6 +194,48 @@ const UpdateSite = async (req, res) => {
   }
 };
 
+
+
+const getAllSites = ((req, res) => {
+  db.query('SELECT * FROM site', (err, result) => {
+      if (err){
+          console.log(err);
+      }else{
+          res.send(result);
+      }
+  });
+})
+
+
+const getSite = ((req, res) => {
+  const id = req.params.id;
+  db.query('SELECT * FROM site where id = ?',id, (err, result) => {
+      if (err){
+          console.log(err);
+      }else{
+          res.send(result);
+      }
+  });
+})
+
+
+const getSummary = ((req, res) => {
+  db.query('SELECT siteid,sitename,category,Total,icon from site;', (err, result) => {
+      if (err){
+          console.log(err);
+      }else{
+          res.send(result);
+      }
+  });
+})
+
+
+
+
+
+
+
+
 module.exports = {
   GetAllSites,
   GetSite,
@@ -203,4 +247,7 @@ module.exports = {
   UpdateSite,
   GetSiteRating,
   GetSiteReviews,
+  getAllSites,
+  getSite,
+  getSummary
 };
